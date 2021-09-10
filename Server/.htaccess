@@ -1,0 +1,55 @@
+################################################################################
+# Copyright (c) 2010 Tive. All rights reserved.
+# 현재 로그인 제한(임시기간, 3회오류) 해제 상태임.
+################################################################################
+
+# PHP 환경설정
+PHP_FLAG display_errors ON
+PHP_FLAG magic_quotes_gpc OFF
+PHP_FLAG register_globals OFF
+
+# SESSION 환경설정
+PHP_FLAG session.bug_compat_42 OFF
+PHP_FLAG session.bug_compat_warn OFF
+PHP_FLAG session.cookie_httponly ON
+PHP_VALUE session.gc_maxlifetime 3600
+PHP_VALUE session.hash_function 1
+PHP_VALUE session.name SESSIONUNIQUEKEY
+PHP_FLAG session.use_only_cookies ON
+PHP_FLAG session.use_trans_sid OFF
+
+# MYSQL 환경설정
+PHP_VALUE mysql.default_charset UTF8
+
+# 기본 인덱스 지정
+DirectoryIndex index.php
+
+# 기본 캐릭터셋 지정
+AddDefaultCharset UTF-8
+
+# www 주소 체크
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(wowzer\.kr)(:80)? [NC]
+RewriteRule ^(.*) http://www.wowzer.kr/ [R=301,L]
+
+# 리소스 무단접속 차단
+SetEnvIf Referer "www.wowzer.kr" link_allow1
+<FilesMatch ".\
+(gif|jpg|zip|alz|a00|jpeg|GIF|JPG|ZIP|RAR|ALZ|A00|ACE|mp3|MP3|mpeg|MPEG\
+|wav|WAV|asf|ASF|wmv|WMV|swf|smi|SMI|SWF|exe|EXE|wma|WMA|torrent|TORRENT|js|JS)$">
+Order Deny,Allow
+Deny from all
+Allow from env=link_allow1
+</FilesMatch>
+
+RewriteEngine On
+RewriteCond %{REMOTE_ADDR} ^116.125.216. [OR]
+RewriteCond %{REMOTE_ADDR} ^116.125.216.226 [OR]
+RewriteCond %{REMOTE_ADDR} ^114.203.104 [OR]
+RewriteCond %{REMOTE_ADDR} ^114.203.104.164
+RewriteRule .* http://www.naver.com/
+
+# 페이지 오류
+ErrorDocument 401 http://www.wowzer.kr/
+ErrorDocument 403 http://www.wowzer.kr/
+ErrorDocument 404 http://www.wowzer.kr/

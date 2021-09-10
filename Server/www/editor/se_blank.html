@@ -1,0 +1,23 @@
+<?
+
+// 헤더파일	연결
+include	"../../header.php";
+
+// 로그인 인증키 확인
+$member = mysql_fetch_array(mysql_query("select * from member where login_key='$_SESSION[wowzer_key]'",$dbconn));
+if(!$_SESSION[wowzer_key] || $_SESSION[wowzer_key]!=$member[login_key]) {
+	session_destroy();
+	echo "<script>alert(' 로그인 후 이용할 수 있습니다. ');self.location.href='home.php';</script>"; exit;
+}
+
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>Smart Editor&#8482; WYSIWYG Mode [반드시 필요한 에디터의 빈 페이지 파일 입니다]</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<?if($member[login_browser]=="1"){?><body id="smartInput" class="smartOutput" style="background:url('http://akeetes430.cdn2.cafe24.com/editor_bg.gif') no-repeat fixed bottom right; word-break:break-all;"><?}else{?>
+<body id="smartInput" class="smartOutput" style="background:url('http://akeetes430.cdn2.cafe24.com/editor_bg_ff.gif') no-repeat fixed; word-break:break-all;"><?}?>
+</body>
+</html>

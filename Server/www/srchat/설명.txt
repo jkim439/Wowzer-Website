@@ -1,0 +1,42 @@
+/*
+ * srchat 203.0
+ * Developed By 사리 (sariputra3@naver.com)
+ * License : GNU Public License (GPL)
+ * Homepage : http://srboard.styx.kr/srboard/index.php?id=blog&ct=06
+ */
+chat.php :: 채팅방 개설하는 채팅소스
+chat4.php :: 위젯용 채팅소스
+
+업로드한 후에
+srchat/chat 디렉토리의 권한을 0777로 주세요.
+
+두 파일은 각각 독립적인 채팅소스입니다.
+둘 모두를 사용해도 되고, 둘 중에 하나만 써도 됩니다.
+인터넷브라우저로 각 파일에 접속해서,
+로그인(= mysql에 접속하는 아이디와 비밀번호) 한 뒤에
+[install] 버튼을 클릭하면,
+채팅방이 활성화됩니다.
+
+다른 페이지에 삽입할 때는,
+<?
+$chtwidth = '220px'; // 전체넓이
+$chtheight = '180px'; // 전체높이
+$chthorizon = 'v'; // h:가로2단, v:세로2단
+$cht_cntwh = '150px'; // 채팅본문
+$cht_usrwh = '30px'; // 참여자란
+$chtisbr = 'Y'; // 닉과 본문사이 줄바꿈
+$unload = 1; // 1 : 주소이동 확인창 안띄움, 2 : 띄움(접속종료를 즉시 파악됨(opera제외))
+$chtid = ''; // 채팅방 아이디를 넣어줍니다.
+include("chat4.php");
+?>
+이런 식으로 삽입합니다.
+주의할 점 {
+chat4.php와 chat4.php를 인클루드하는 파일이 같은 경로에 있어야 합니다.
+chat4.php의 스타일정의를 웹페이지의 <head></head> 사이에
+<link rel='stylesheet' type='text/css' href='chat4.php?css=1' />
+이렇게 삽입해야 합니다.
+}
+
+chat.php는 {
+새창 또는 iframe으로  열어서 사용하세요.
+} 
